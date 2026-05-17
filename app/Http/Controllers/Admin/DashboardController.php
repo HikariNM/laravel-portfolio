@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    public function index(){
-    return 'This is the Admin Index page';
+
+
+    public function index()
+    {
+
+        $user = Auth::user();
+        $name =  $user->name;
+        return "Welcome to the Admin panel $name";
     }
 }

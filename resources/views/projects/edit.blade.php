@@ -1,0 +1,78 @@
+@extends('layouts.project')
+
+@section('content')
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="fw-bold text-primary">Edit project</h1>
+        <a href="{{ route('projects.index') }}" class="btn btn-outline-secondary shadow-sm">
+            <i class="fa-solid fa-arrow-left"></i> Back to List
+        </a>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+            <form action="{{ route('projects.update', $project) }}" method="POST">
+                @csrf
+                @method('PUT')
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="title" class="form-label fw-bold">Project Title</label>
+                        <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ $project->title }}" placeholder="Ex: E-commerce Website" required>
+                        @error('title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="slug" class="form-label fw-bold">Slug</label>
+                        <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" value="{{ $project->slug  }}" placeholder="ecommerce-website" required>
+                        @error('slug')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="type" class="form-label fw-bold">Type</label>
+                        <select type="text" class="form-control @error('type') is-invalid @enderror" id="type" name="type" " placeholder="Project Type" required>
+                        @foreach ($types as $type)
+                            <option value="{{ $type->id }}" {{$project->type_id == $type->id ? 'selected' : ''}}>{{ $type->name }}</option>
+                        @endforeach
+                        
+                            @error('type')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="url_repo" class="form-label fw-bold">Repository URL</label>
+                        <input type="url" class="form-control @error('url_repo') is-invalid @enderror" id="url_repo" name="url_repo" value="{{ $project->url_repo  }}" placeholder="https://github.com/username/repo">
+                        @error('url_repo')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <label for="short_description" class="form-label fw-bold">Short Description</label>
+                        <input type="text" class="form-control @error('short_description') is-invalid @enderror" id="short_description" name="short_description" value="{{ $project->short_description}}" placeholder="A brief summary of the project">
+                        @error('short_description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-12 mb-4">
+                        <label for="description" class="form-label fw-bold">Full Description</label>
+                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="5" placeholder="Detailed project information...">{{ $project->description }}</textarea>
+                        @error('description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2">
+                    {{-- <button type="reset" class="btn btn-light px-4">Reset Fields</button> --}}
+                    <button type="submit" class="btn btn-primary px-4 shadow-sm">Save Project</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
