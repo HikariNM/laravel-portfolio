@@ -1,6 +1,11 @@
 @extends('layouts.project')
 
 @section('content')
+<div class="d-flex flex-row-reverse justify-content-between align-items-center mb-4">
+<a href="{{ route('projects.index') }}" class="btn btn-outline-secondary shadow-sm">
+    <i class="fa-solid fa-arrow-left"></i> Back to List
+</a>
+</div>
 <div class="bg-primary text-white py-5 mb-5 shadow">
     <div class="container">
         <div class="row align-items-center">
@@ -46,8 +51,14 @@
                         <span class="badge bg-light text-dark border">{{ $project->slug }}</span>
                     </li>
                     <li class="mb-3">
-                        <small class="d-block text-muted">Type</small>
+                        <small class="d-block text-muted">Type:</small>
                         <span class="badge bg-light text-dark border">{{ $project->type->name }}</span>
+                    </li>
+                    <li class="mb-3">
+                        <small class="d-block text-muted">Tech:</small>
+                        @foreach ($project->technologies as $tech)
+                        <span class="badge text-dark border" style="background-color: {{$tech->color}}">{{ $tech->name }}</span>
+                        @endforeach
                     </li>
                     <li class="mb-3">
                         <small class="d-block text-muted">Created at:</small>

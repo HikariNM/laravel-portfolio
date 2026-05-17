@@ -49,7 +49,15 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-
+                    <div class="col-md-6 mb-3">
+                        <label for="technlogies" class="form-label fw-bold">Used Technlogies</label>
+                        <div>
+                            @foreach ($technologies as $tech)
+                                <input type="checkbox" name="techs[]" value="{{$tech->id}}" id="tech-{{$tech->id}}" {{$project->technologies->contains($tech->id) ? 'checked' : ''}}>
+                                <label for="tech-{{$tech->id}}" class="form-label fw-bold me-2">{{$tech->name}}</label>
+                            @endforeach
+                        </div>
+                    </div>
                     <div class="col-12 mb-3">
                         <label for="short_description" class="form-label fw-bold">Short Description</label>
                         <input type="text" class="form-control @error('short_description') is-invalid @enderror" id="short_description" name="short_description" value="{{ $project->short_description}}" placeholder="A brief summary of the project">
@@ -69,9 +77,37 @@
 
                 <div class="d-flex justify-content-end gap-2">
                     {{-- <button type="reset" class="btn btn-light px-4">Reset Fields</button> --}}
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Delete Project
+                    </button>
                     <button type="submit" class="btn btn-primary px-4 shadow-sm">Save Project</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete project</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want do permanently delete this project from your portfolio?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form action="{{ route('projects.destroy', $project) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </form> 
+            </div>
         </div>
     </div>
 </div>

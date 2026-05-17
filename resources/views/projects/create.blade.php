@@ -1,5 +1,5 @@
 @extends('layouts.project')
-
+{{-- @dd($technologies) --}}
 @section('content')
 <div class="container py-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -48,7 +48,15 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-
+                    <div class="col-md-6 mb-3">
+                        <label for="technlogies" class="form-label fw-bold">Used Technlogies</label>
+                        <div>
+                            @foreach ($technologies as $tech)
+                                <input type="checkbox" name="techs[]" value="{{$tech->id}}" id="tech-{{$tech->id}}">
+                                <label for="tech-{{$tech->id}}" class="form-label fw-bold me-2">{{$tech->name}}</label>
+                            @endforeach
+                        </div>
+                    </div>
                     <div class="col-12 mb-3">
                         <label for="short_description" class="form-label fw-bold">Short Description</label>
                         <input type="text" class="form-control @error('short_description') is-invalid @enderror" id="short_description" name="short_description" value="{{ old('short_description') }}" placeholder="A brief summary of the project">
