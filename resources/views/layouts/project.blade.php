@@ -23,7 +23,16 @@
                             Projects
                         </a>
                     </li>
-                    <li class="nav-item ms-lg-3">
+                    @auth
+                        
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('admin/types*') ? 'active' : '' }}" href="{{ route('admin.types.index') }}">
+                            Types
+                        </a>
+                    </li>
+                    @endauth
+                    </li>
+                        <li class="nav-item ms-lg-3">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="btn btn-outline-light btn-sm mt-1">Logout</button>

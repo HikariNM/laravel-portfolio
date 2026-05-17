@@ -4,7 +4,7 @@
 <div class="container py-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="fw-bold text-primary">Create New Project</h1>
-        <a href="{{ route('admin.types.index') }}" class="btn btn-outline-secondary shadow-sm">
+        <a href="{{ route('projects.index') }}" class="btn btn-outline-secondary shadow-sm">
             <i class="fa-solid fa-arrow-left"></i> Back to List
         </a>
     </div>

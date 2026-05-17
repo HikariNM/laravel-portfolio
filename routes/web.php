@@ -30,8 +30,15 @@ Route::middleware(['auth', 'verified'])
         Route::resource('types', TypeController::class);
     });
 
-Route::resource('projects', ProjectController::class)
-    ->middleware(['auth', 'verified']);
+Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('projects', ProjectController::class)->except(['index', 'show']);
+});
+Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
+
+
+// Route::resource('projects', ProjectController::class)
+//     ->middleware(['auth', 'verified']);
 
 
 require __DIR__ . '/auth.php';

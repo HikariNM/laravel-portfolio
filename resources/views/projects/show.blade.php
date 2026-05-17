@@ -14,13 +14,16 @@
                 <h1 class="display-4 fw-bold">{{ $project->title }}</h1>
                 <p class="lead opacity-75">{{ $project->short_description ?? 'No short description available.' }}</p>
             </div>
+            @auth
+                
             <div class="col-md-4 text-md-end">
                 <a href="{{ route('projects.edit', $project) }}" class="btn btn-light shadow-sm">Edit Project</a>
-
+                
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Delete Project
                 </button>
             </div>
+            @endauth
         </div>
     </div>
 </div>
